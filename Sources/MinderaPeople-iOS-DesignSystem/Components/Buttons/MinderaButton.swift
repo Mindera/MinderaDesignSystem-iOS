@@ -35,8 +35,7 @@ struct MinderaButton: View {
         case .primary:
             content.buttonStyle(Primary(isDisabled: isDisabled))
         case .secondary:
-            // TODO
-            content.buttonStyle(Primary(isDisabled: isDisabled))
+            content.buttonStyle(Secondary(isDisabled: isDisabled))
         case .tertiary:
             // TODO
             content.buttonStyle(Primary(isDisabled: isDisabled))
