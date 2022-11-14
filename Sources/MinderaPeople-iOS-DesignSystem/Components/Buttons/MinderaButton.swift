@@ -37,13 +37,12 @@ struct MinderaButton: View {
         case .secondary:
             content.buttonStyle(Secondary(isDisabled: isDisabled))
         case .tertiary:
-            // TODO
-            content.buttonStyle(Primary(isDisabled: isDisabled))
+            content.buttonStyle(Tertiary(size: size, isDisabled: isDisabled))
         case .destructive:
-            // TODO
+            // TODO:
             content.buttonStyle(Primary(isDisabled: isDisabled))
         case .danger:
-            // TODO
+            // TODO:
             content.buttonStyle(Primary(isDisabled: isDisabled))
         }
     }
@@ -84,14 +83,20 @@ struct MinderaButton_Previews: PreviewProvider {
     static var previews: some View {
         MinderaButton(style: .primary)
             .previewDisplayName("Primary - Big")
-        
+
         MinderaButton(.small, style: .primary)
             .previewDisplayName("Primary - Small")
 
         MinderaButton(style: .secondary)
             .previewDisplayName("Secondary - Big")
-        
+
         MinderaButton(.small, style: .secondary)
             .previewDisplayName("Secondary - Small")
+
+        MinderaButton(style: .tertiary)
+            .previewDisplayName("Tertiary - Big")
+
+        MinderaButton(.small, style: .tertiary)
+            .previewDisplayName("Tertiary - Small")
     }
 }

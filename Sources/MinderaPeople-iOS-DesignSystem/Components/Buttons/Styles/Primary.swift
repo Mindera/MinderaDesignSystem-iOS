@@ -56,7 +56,7 @@ extension Primary {
 
 extension Primary {
     private func borderColor(isPressed: Bool) -> Color {
-        return .clear
+        .clear
     }
 }
 
