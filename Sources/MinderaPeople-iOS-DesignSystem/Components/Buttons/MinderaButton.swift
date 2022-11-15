@@ -1,12 +1,12 @@
 import SwiftUI
 
-struct MinderaButton: View {
-    enum Size {
+public struct MinderaButton: View {
+    public enum Size {
         case big
         case small
     }
 
-    enum Style {
+    public enum Style {
         case primary
         case secondary
         case tertiary
@@ -19,18 +19,18 @@ struct MinderaButton: View {
     private let style: Style
     private var isDisabled = false
 
-    init(_ size: Size = .big, style: Style = .primary) {
+    public init(_ size: Size = .big, style: Style = .primary) {
         self.size = size
         self.style = style
     }
 
-    func disabled(_ isDisabled: Bool) -> Self {
+    public func disabled(_ isDisabled: Bool) -> Self {
         var copy = self
         copy.isDisabled = isDisabled
         return copy
     }
 
-    var body: some View {
+    public var body: some View {
         switch style {
         case .primary:
             content.buttonStyle(Primary(isDisabled: isDisabled))
