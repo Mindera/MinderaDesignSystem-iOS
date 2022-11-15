@@ -1,12 +1,18 @@
 import SwiftUI
 
 struct Destructive: ButtonStyle {
+    // MARK: Private Properties
+
     @Environment(\.colorScheme) private var colorScheme
     private let isDisabled: Bool
+
+    // MARK: Lifecycle
 
     init(isDisabled: Bool) {
         self.isDisabled = isDisabled
     }
+
+    // MARK: Public Methods
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

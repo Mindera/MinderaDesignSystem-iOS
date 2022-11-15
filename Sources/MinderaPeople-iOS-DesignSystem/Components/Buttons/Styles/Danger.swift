@@ -1,11 +1,17 @@
 import SwiftUI
 
 struct Danger: ButtonStyle {
+    // MARK: Private Properties
+
     private let isDisabled: Bool
+
+    // MARK: Lifecycle
 
     init(isDisabled: Bool) {
         self.isDisabled = isDisabled
     }
+
+    // MARK: Public Methods
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

@@ -1,13 +1,19 @@
 import SwiftUI
 
 struct Tertiary: ButtonStyle {
+    // MARK: Private Properties
+
     private let size: MinderaButton.Size
     private let isDisabled: Bool
+
+    // MARK: Lifecycle
 
     init(size: MinderaButton.Size, isDisabled: Bool) {
         self.size = size
         self.isDisabled = isDisabled
     }
+
+    // MARK: Public Methods
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

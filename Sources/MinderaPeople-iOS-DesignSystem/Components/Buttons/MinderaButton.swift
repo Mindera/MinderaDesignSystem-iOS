@@ -1,6 +1,8 @@
 import SwiftUI
 
 public struct MinderaButton: View {
+    // MARK: Inner Types
+
     public enum Size {
         case big
         case small
@@ -24,6 +26,8 @@ public struct MinderaButton: View {
         let image: Image
     }
 
+    // MARK: Private Properties
+
     @Environment(\.colorScheme) private var colorScheme
     private var size: Size = .big
     private var style: Style = .primary
@@ -33,10 +37,14 @@ public struct MinderaButton: View {
     private let title: String?
     private let action: () -> Void
 
+    // MARK: Lifecycle
+
     public init(_ title: String?, action: @escaping () -> Void) {
         self.title = title
         self.action = action
     }
+
+    // MARK: Public Methods
 
     public func size(_ size: Size) -> Self {
         var copy = self
@@ -62,6 +70,8 @@ public struct MinderaButton: View {
         return copy
     }
 
+    // MARK: Public Properties
+
     public var body: some View {
         switch style {
         case .primary:
@@ -76,6 +86,8 @@ public struct MinderaButton: View {
             content.buttonStyle(Danger(isDisabled: isDisabled))
         }
     }
+
+    // MARK: Private Properties
 
     private var content: some View {
         Button(
@@ -140,6 +152,8 @@ public struct MinderaButton: View {
         }
     }
 }
+
+// MARK: Previews
 
 struct MinderaButton_Previews: PreviewProvider {
     static var previews: some View {
