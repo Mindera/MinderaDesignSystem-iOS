@@ -13,7 +13,13 @@ struct Primary: ButtonStyle {
             .background(backgroundColor(isPressed: configuration.isPressed))
             .foregroundColor(foregroundColor(isPressed: configuration.isPressed))
             .cornerRadius(4)
-            .border(borderColor(isPressed: configuration.isPressed))
+            .overlay(
+                RoundedRectangle(cornerRadius: 4)
+                    .stroke(
+                        borderColor(isPressed: configuration.isPressed),
+                        style: StrokeStyle(lineWidth: 1)
+                    )
+            )
     }
 }
 

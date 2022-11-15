@@ -41,8 +41,7 @@ struct MinderaButton: View {
         case .destructive:
             content.buttonStyle(Destructive(isDisabled: isDisabled))
         case .danger:
-            // TODO:
-            content.buttonStyle(Primary(isDisabled: isDisabled))
+            content.buttonStyle(Danger(isDisabled: isDisabled))
         }
     }
 
@@ -103,5 +102,11 @@ struct MinderaButton_Previews: PreviewProvider {
 
         MinderaButton(.small, style: .destructive)
             .previewDisplayName("Destructive - Small")
+        
+        MinderaButton(style: .danger)
+            .previewDisplayName("Danger - Big")
+
+        MinderaButton(.small, style: .danger)
+            .previewDisplayName("Danger - Small")
     }
 }

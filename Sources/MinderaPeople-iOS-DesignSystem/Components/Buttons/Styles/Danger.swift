@@ -1,7 +1,6 @@
 import SwiftUI
 
-struct Destructive: ButtonStyle {
-    @Environment(\.colorScheme) private var colorScheme
+struct Danger: ButtonStyle {
     private let isDisabled: Bool
 
     init(isDisabled: Bool) {
@@ -25,19 +24,36 @@ struct Destructive: ButtonStyle {
 
 // MARK: BackgroundColor
 
-extension Destructive {
+extension Danger {
     private func backgroundColor(isPressed: Bool) -> Color {
-        switch colorScheme {
-        case .light:
-            return lightBackgroundColor(isPressed: isPressed)
-        case .dark:
-            return darkBackgroundColor(isPressed: isPressed)
-        @unknown default:
-            return lightBackgroundColor(isPressed: isPressed)
+        if isPressed {
+            return .red(._000)
         }
+        if isDisabled {
+            return .clear
+        }
+        return .white(._900)
     }
+}
 
-    private func lightBackgroundColor(isPressed: Bool) -> Color {
+// MARK: BorderColor
+
+extension Danger {
+    private func borderColor(isPressed: Bool) -> Color {
+        if isPressed {
+            return .clear
+        }
+        if isDisabled {
+            return .clear
+        }
+        return .black(._000)
+    }
+}
+
+// MARK: ForegroundColor
+
+extension Danger {
+    private func foregroundColor(isPressed: Bool) -> Color? {
         if isPressed {
             return .red(._900)
         }
@@ -46,55 +62,11 @@ extension Destructive {
         }
         return .red(._700)
     }
-
-    private func darkBackgroundColor(isPressed: Bool) -> Color {
-        if isPressed {
-            return .red(._900)
-        }
-        if isDisabled {
-            return .red(._900)
-        }
-        return .red(._700)
-    }
-}
-
-// MARK: BorderColor
-
-extension Destructive {
-    private func borderColor(isPressed: Bool) -> Color {
-        .clear
-    }
-}
-
-// MARK: ForegroundColor
-
-extension Destructive {
-    private func foregroundColor(isPressed: Bool) -> Color? {
-        switch colorScheme {
-        case .light:
-            return .white(._900)
-        case .dark:
-            return darkForegroundColor(isPressed: isPressed)
-        @unknown default:
-            return .white(._900)
-        }
-    }
-
-    private func darkForegroundColor(isPressed: Bool) -> Color {
-        if isPressed {
-            return .white(._900)
-        }
-        if isDisabled {
-            // TODO: fix on figma
-            return .white(._900)
-        }
-        return .white(._900)
-    }
 }
 
 // MARK: Previews
 
-struct Destructive_Previews: PreviewProvider {
+struct Danger_Previews: PreviewProvider {
     struct Content: View {
         var isDisabled: Bool
 
@@ -110,7 +82,7 @@ struct Destructive_Previews: PreviewProvider {
                     .padding(.horizontal, 16)
                 }
             )
-            .buttonStyle(Destructive(isDisabled: isDisabled))
+            .buttonStyle(Danger(isDisabled: isDisabled))
         }
     }
 
