@@ -8,6 +8,11 @@ public struct MinderaButton: View {
         case small
     }
 
+    public enum ContentMode {
+        case fit
+        case fill
+    }
+
     public enum Style {
         case primary
         case secondary
@@ -31,6 +36,7 @@ public struct MinderaButton: View {
     // MARK: Private Properties
 
     private var size: Size = .big
+    private var contentMode: ContentMode = .fit
     private var style: Style = .primary
     private var isDisabled = false
 
@@ -49,6 +55,12 @@ public struct MinderaButton: View {
     public func size(_ size: Size) -> Self {
         var copy = self
         copy.size = size
+        return copy
+    }
+
+    public func contentMode(_ contentMode: ContentMode) -> Self {
+        var copy = self
+        copy.contentMode = contentMode
         return copy
     }
 
@@ -101,6 +113,7 @@ public struct MinderaButton: View {
                         image(icon)
                     }
                 }
+                .frame(maxWidth: maxWidth)
                 .padding(.vertical, verticalPadding)
                 .padding(.horizontal, horizontalPadding)
             }
@@ -159,6 +172,15 @@ public struct MinderaButton: View {
             return 11
         }
     }
+    
+    private var maxWidth: CGFloat? {
+        switch contentMode {
+        case .fit:
+            return nil
+        case .fill:
+            return .infinity
+        }
+    }
 }
 
 // MARK: Previews
@@ -188,8 +210,7 @@ struct MinderaButton_Previews: PreviewProvider {
             .imageAndTitle(
                 Image(systemName: "xmark"),
                 "Hello world"
-            )
-            ,
+            ),
             action: {}
         )
         .style(.secondary)
@@ -199,5 +220,15 @@ struct MinderaButton_Previews: PreviewProvider {
             .style(.danger)
             .size(.small)
             .previewDisplayName("Only icon - Small")
+
+        MinderaButton(
+            .imageAndTitle(
+                Image(systemName: "xmark"),
+                "Hello world"
+            ),
+            action: {}
+        )
+        .contentMode(.fill)
+        .previewDisplayName("ContentMode - Fill")
     }
 }
