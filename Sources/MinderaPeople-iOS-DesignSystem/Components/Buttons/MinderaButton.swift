@@ -21,26 +21,26 @@ public struct MinderaButton: View {
         case trailing
     }
 
-    private struct ImageConfiguration {
-        let position: ImagePosition
-        let image: Image
+    public enum Configuration {
+        case title(String)
+        case titleAndImage(String, Image)
+        case imageAndTitle(Image, String)
+        case image(Image)
     }
 
     // MARK: Private Properties
 
-    @Environment(\.colorScheme) private var colorScheme
     private var size: Size = .big
     private var style: Style = .primary
     private var isDisabled = false
-    private var imageConfiguration: ImageConfiguration?
 
-    private let title: String?
+    private let configuration: Configuration
     private let action: () -> Void
 
     // MARK: Lifecycle
 
-    public init(_ title: String?, action: @escaping () -> Void) {
-        self.title = title
+    public init(_ configuration: Configuration, action: @escaping () -> Void) {
+        self.configuration = configuration
         self.action = action
     }
 
@@ -61,12 +61,6 @@ public struct MinderaButton: View {
     public func disabled(_ isDisabled: Bool) -> Self {
         var copy = self
         copy.isDisabled = isDisabled
-        return copy
-    }
-
-    public func image(_ position: ImagePosition, image: Image) -> Self {
-        var copy = self
-        copy.imageConfiguration = .init(position: position, image: image)
         return copy
     }
 
@@ -94,25 +88,17 @@ public struct MinderaButton: View {
             action: action,
             label: {
                 HStack(spacing: 8) {
-                    if
-                        let configuration = imageConfiguration,
-                        configuration.position == .leading {
-                        configuration.image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: imageSize, height: imageSize)
-                    }
-                    if let title = title {
-                        Text(title)
-                            .customFont(size: .S, weight: .semiBold)
-                    }
-                    if
-                        let configuration = imageConfiguration,
-                        configuration.position == .trailing {
-                        configuration.image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: imageSize, height: imageSize)
+                    switch configuration {
+                    case let .title(text):
+                        title(text)
+                    case let .titleAndImage(text, icon):
+                        title(text)
+                        image(icon)
+                    case let .imageAndTitle(icon, text):
+                        image(icon)
+                        title(text)
+                    case let .image(icon):
+                        image(icon)
                     }
                 }
                 .padding(.vertical, verticalPadding)
@@ -122,8 +108,32 @@ public struct MinderaButton: View {
         .disabled(isDisabled)
     }
 
+    @ViewBuilder
+    private func title(_ text: String) -> some View {
+        Text(text)
+            .customFont(size: .S, weight: .semiBold)
+    }
+
+    @ViewBuilder
+    private func image(_ image: Image) -> some View {
+        image
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: imageSize, height: imageSize)
+    }
+
+    private var onlyIcon: Bool {
+        switch configuration {
+        case .title,
+             .titleAndImage,
+             .imageAndTitle:
+            return false
+        case .image:
+            return true
+        }
+    }
+
     private var verticalPadding: CGFloat {
-        let onlyIcon = title == nil
         switch size {
         case .big:
             return onlyIcon ? 9 : 10
@@ -133,7 +143,6 @@ public struct MinderaButton: View {
     }
 
     private var horizontalPadding: CGFloat {
-        let onlyIcon = title == nil
         switch size {
         case .big:
             return onlyIcon ? 9 : 16
@@ -143,7 +152,6 @@ public struct MinderaButton: View {
     }
 
     private var imageSize: CGFloat {
-        let onlyIcon = title == nil
         switch size {
         case .big:
             return onlyIcon ? 16 : 11
@@ -157,39 +165,39 @@ public struct MinderaButton: View {
 
 struct MinderaButton_Previews: PreviewProvider {
     static var previews: some View {
-        MinderaButton("Hello world", action: {})
+        MinderaButton(.title("Hello world"), action: {})
             .style(.primary)
             .previewDisplayName("Primary - Big")
 
-        MinderaButton("Hello world", action: {})
+        MinderaButton(.title("Hello world"), action: {})
             .size(.small)
             .style(.primary)
             .previewDisplayName("Primary - Small")
 
-        MinderaButton(nil, action: {})
-            .style(.primary)
-            .previewDisplayName("No title")
+        MinderaButton(
+            .titleAndImage(
+                "Hello world",
+                Image(systemName: "xmark")
+            ),
+            action: {}
+        )
+        .style(.primary)
+        .previewDisplayName("Trailing icon")
 
-        MinderaButton("Hello world", action: {})
-            .style(.primary)
-            .image(.trailing, image: Image(systemName: "xmark"))
-            .previewDisplayName("Trailing icon")
+        MinderaButton(
+            .imageAndTitle(
+                Image(systemName: "xmark"),
+                "Hello world"
+            )
+            ,
+            action: {}
+        )
+        .style(.secondary)
+        .previewDisplayName("Leading icon")
 
-        MinderaButton("Hello world", action: {})
-            .style(.secondary)
-            .image(.leading, image: Image(systemName: "xmark"))
-            .previewDisplayName("Leading icon")
-
-        MinderaButton(nil, action: {})
-            .style(.danger)
-            .image(.leading, image: Image(systemName: "xmark"))
-            .image(.trailing, image: Image(systemName: "trash"))
-            .previewDisplayName("Only icon - Big")
-
-        MinderaButton(nil, action: {})
+        MinderaButton(.image(Image(systemName: "xmark")), action: {})
             .style(.danger)
             .size(.small)
-            .image(.trailing, image: Image(systemName: "xmark"))
             .previewDisplayName("Only icon - Small")
     }
 }
