@@ -79,23 +79,6 @@ public struct MinderaButton: View {
     // MARK: Public Properties
 
     public var body: some View {
-        switch style {
-        case .primary:
-            content.buttonStyle(Primary(isDisabled: isDisabled))
-        case .secondary:
-            content.buttonStyle(Secondary(isDisabled: isDisabled))
-        case .tertiary:
-            content.buttonStyle(Tertiary(size: size, isDisabled: isDisabled))
-        case .destructive:
-            content.buttonStyle(Destructive(isDisabled: isDisabled))
-        case .danger:
-            content.buttonStyle(Danger(isDisabled: isDisabled))
-        }
-    }
-
-    // MARK: Private Properties
-
-    private var content: some View {
         Button(
             action: action,
             label: {
@@ -119,6 +102,24 @@ public struct MinderaButton: View {
             }
         )
         .disabled(isDisabled)
+        .buttonStyle(MinderaButtonStyle(pallet: buttonStyle, isDisabled: isDisabled))
+    }
+
+    // MARK: Private Properties
+
+    private var buttonStyle: ButtonPallet {
+        switch style {
+        case .primary:
+            return .primary
+        case .secondary:
+            return .secondary
+        case .tertiary:
+            return .tertiary
+        case .destructive:
+            return .destructive
+        case .danger:
+            return .danger
+        }
     }
 
     @ViewBuilder
@@ -172,7 +173,7 @@ public struct MinderaButton: View {
             return 11
         }
     }
-    
+
     private var maxWidth: CGFloat? {
         switch contentMode {
         case .fit:
