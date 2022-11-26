@@ -16,9 +16,8 @@ public extension Text {
         case bold
     }
 
-    // TODO: Add custom font: Inter
     func customFont(size: Size, weight: Weight = .regular) -> Text {
-        let customFont = Font.system(size: size.rawValue)
+        registerFonts()
         var customWeight: Font.Weight {
             switch weight {
             case .regular:
@@ -29,7 +28,6 @@ public extension Text {
                 return .bold
             }
         }
-
-        return font(customFont).fontWeight(customWeight)
+        return font(.custom("Inter", size: size.rawValue)).fontWeight(customWeight)
     }
 }
