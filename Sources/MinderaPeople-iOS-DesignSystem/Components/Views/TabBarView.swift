@@ -3,7 +3,7 @@ import SwiftUI
 public class TabBarController<SelectionValue>: ObservableObject where SelectionValue: Hashable {
     @Binding public var selected: SelectionValue
     @Published public var isVisible = true
-    
+
     public init(selected: Binding<SelectionValue>) {
         _selected = selected
     }
@@ -138,20 +138,36 @@ struct TabBarView_Previews: PreviewProvider {
                 .tab(
                     .profile,
                     content: {
-                        Text("Profile")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(Color.yellow(._100))
+                        VStack {
+                            Text("Profile")
+                            ContentButton()
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color.yellow(._100))
                     },
                     icon: icon(systemName: "person"),
                     text: EmptyView()
                 )
         }
-        
+
         private func icon(systemName: String) -> some View {
             Image(systemName: systemName)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 24, height: 24)
+        }
+    }
+
+    struct ContentButton: View {
+        @EnvironmentObject
+        private var tabBarController: TabBarController<Tab>
+
+        var body: some View {
+            MinderaButton(
+                .title(tabBarController.isVisible ? "Hide tab bar" : "Show tab bar"),
+                action: {
+                    tabBarController.isVisible.toggle()
+                })
         }
     }
 
