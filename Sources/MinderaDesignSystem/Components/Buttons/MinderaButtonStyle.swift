@@ -35,10 +35,8 @@ struct MinderaButtonStyle: ButtonStyle {
 // MARK: Color
 
 extension MinderaButtonStyle {
-    private typealias ButtonAppearanceState = ButtonAppearance.ButtonAppearanceColorScheme.ButtonAppearanceState
-    private typealias ButtonAppearanceColorScheme = ButtonAppearance.ButtonAppearanceColorScheme
-    private func color(for property: KeyPath<ButtonAppearanceState, Color>, isPressed: Bool) -> Color {
-        let colorSchemeKeyPath: KeyPath<ButtonAppearance, ButtonAppearanceColorScheme>
+    private func color(for property: KeyPath<ButtonAppearance.ColorScheme.State, Color>, isPressed: Bool) -> Color {
+        let colorSchemeKeyPath: KeyPath<ButtonAppearance, ButtonAppearance.ColorScheme>
         switch colorScheme {
         case .light:
             colorSchemeKeyPath = \.lightMode
@@ -48,7 +46,7 @@ extension MinderaButtonStyle {
             colorSchemeKeyPath = \.lightMode
         }
 
-        var stateKeyPath: KeyPath<ButtonAppearanceColorScheme, ButtonAppearanceState> = \.standard
+        var stateKeyPath: KeyPath<ButtonAppearance.ColorScheme, ButtonAppearance.ColorScheme.State> = \.standard
         if isPressed {
             stateKeyPath = \.pressed
         }

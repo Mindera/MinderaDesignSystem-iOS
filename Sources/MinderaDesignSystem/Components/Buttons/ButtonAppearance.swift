@@ -1,15 +1,15 @@
 import SwiftUI
 
 struct ButtonAppearance {
-    let lightMode: ButtonAppearanceColorScheme
-    let darkMode: ButtonAppearanceColorScheme
+    let lightMode: ColorScheme
+    let darkMode: ColorScheme
 
-    struct ButtonAppearanceColorScheme {
-        let standard: ButtonAppearanceState
-        let pressed: ButtonAppearanceState
-        let disabled: ButtonAppearanceState
+    struct ColorScheme {
+        let standard: State
+        let pressed: State
+        let disabled: State
 
-        struct ButtonAppearanceState {
+        struct State {
             let backgroundColor: Color
             let foregroundColor: Color
             let borderColor: Color
