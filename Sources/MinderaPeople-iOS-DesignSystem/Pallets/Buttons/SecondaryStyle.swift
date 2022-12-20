@@ -1,6 +1,6 @@
 import SwiftUI
-extension ButtonPallet {
-    static let secondary = ButtonPallet(
+extension ButtonAppearance {
+    static let secondary = ButtonAppearance(
         lightMode: .init(
             standard: .init(
                 backgroundColor: .white(._900),
@@ -51,7 +51,7 @@ struct Secondary_Previews: PreviewProvider {
                         .padding(16)
                 }
             )
-            .buttonStyle(MinderaButtonStyle(pallet: .secondary, isDisabled: isDisabled))
+            .buttonStyle(MinderaButtonStyle(appearance: .secondary, isDisabled: isDisabled))
         }
     }
 

@@ -1,7 +1,7 @@
 import SwiftUI
 
-extension ButtonPallet {
-    static let destructive = ButtonPallet(
+extension ButtonAppearance {
+    static let destructive = ButtonAppearance(
         lightMode: .init(
             standard: .init(
                 backgroundColor: .red(._700),
@@ -52,7 +52,7 @@ struct Destructive_Previews: PreviewProvider {
                         .padding(16)
                 }
             )
-            .buttonStyle(MinderaButtonStyle(pallet: .destructive, isDisabled: isDisabled))
+            .buttonStyle(MinderaButtonStyle(appearance: .destructive, isDisabled: isDisabled))
         }
     }
 

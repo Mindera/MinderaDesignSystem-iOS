@@ -4,13 +4,13 @@ struct MinderaButtonStyle: ButtonStyle {
     // MARK: Private Properties
 
     @Environment(\.colorScheme) private var colorScheme
-    private let pallet: ButtonPallet
+    private let appearance: ButtonAppearance
     private let isDisabled: Bool
 
     // MARK: Lifecycle
 
-    init(pallet: ButtonPallet, isDisabled: Bool) {
-        self.pallet = pallet
+    init(appearance: ButtonAppearance, isDisabled: Bool) {
+        self.appearance = appearance
         self.isDisabled = isDisabled
     }
 
@@ -35,8 +35,8 @@ struct MinderaButtonStyle: ButtonStyle {
 // MARK: Color
 
 extension MinderaButtonStyle {
-    private func color(for property: KeyPath<ButtonPalletState, Color>, isPressed: Bool) -> Color {
-        let colorSchemeKeyPath: KeyPath<ButtonPallet, ButtonPalletColorScheme>
+    private func color(for property: KeyPath<ButtonAppearanceState, Color>, isPressed: Bool) -> Color {
+        let colorSchemeKeyPath: KeyPath<ButtonAppearance, ButtonAppearanceColorScheme>
         switch colorScheme {
         case .light:
             colorSchemeKeyPath = \.lightMode
@@ -46,7 +46,7 @@ extension MinderaButtonStyle {
             colorSchemeKeyPath = \.lightMode
         }
 
-        var stateKeyPath: KeyPath<ButtonPalletColorScheme, ButtonPalletState> = \.standard
+        var stateKeyPath: KeyPath<ButtonAppearanceColorScheme, ButtonAppearanceState> = \.standard
         if isPressed {
             stateKeyPath = \.pressed
         }
@@ -54,6 +54,6 @@ extension MinderaButtonStyle {
             stateKeyPath = \.disabled
         }
 
-        return pallet[keyPath: colorSchemeKeyPath][keyPath: stateKeyPath][keyPath: property]
+        return appearance[keyPath: colorSchemeKeyPath][keyPath: stateKeyPath][keyPath: property]
     }
 }

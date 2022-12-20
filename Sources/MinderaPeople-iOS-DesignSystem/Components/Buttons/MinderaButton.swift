@@ -102,12 +102,12 @@ public struct MinderaButton: View {
             }
         )
         .disabled(isDisabled)
-        .buttonStyle(MinderaButtonStyle(pallet: buttonStyle, isDisabled: isDisabled))
+        .buttonStyle(MinderaButtonStyle(appearance: buttonAppearance, isDisabled: isDisabled))
     }
 
     // MARK: Private Properties
 
-    private var buttonStyle: ButtonPallet {
+    private var buttonAppearance: ButtonAppearance {
         switch style {
         case .primary:
             return .primary

@@ -1,7 +1,7 @@
 import SwiftUI
 
-extension ButtonPallet {
-    static let danger = ButtonPallet(
+extension ButtonAppearance {
+    static let danger = ButtonAppearance(
         lightMode: .init(
             standard: .init(
                 backgroundColor: .white(._900),
@@ -52,7 +52,7 @@ struct Danger_Previews: PreviewProvider {
                         .padding(16)
                 }
             )
-            .buttonStyle(MinderaButtonStyle(pallet: .danger, isDisabled: isDisabled))
+            .buttonStyle(MinderaButtonStyle(appearance: .danger, isDisabled: isDisabled))
         }
     }
 
