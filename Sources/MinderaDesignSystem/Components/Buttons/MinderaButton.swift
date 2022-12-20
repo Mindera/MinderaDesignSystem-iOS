@@ -21,11 +21,6 @@ public struct MinderaButton: View {
         case danger
     }
 
-    public enum ImagePosition {
-        case leading
-        case trailing
-    }
-
     public enum Configuration {
         case title(String)
         case titleAndImage(String, Image)
