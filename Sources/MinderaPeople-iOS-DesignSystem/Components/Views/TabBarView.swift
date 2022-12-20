@@ -54,10 +54,8 @@ public struct TabBarView<SelectionValue>: View where SelectionValue: Hashable {
                     VStack{
                         tab.element.icon
                         tab.element.text
-                            .font(.system(size: 10))
                     }
                 }
-                .foregroundColor(controller.selected == tab.element.selection ? Color.indigo(._600) : Color.greyBlue(._500))
             }
             Spacer()
         }
