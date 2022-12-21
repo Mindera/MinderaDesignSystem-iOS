@@ -1,1 +1,1 @@
-# MinderaPeople-iOS-DesignSystem
+# MinderaDesignSystem
